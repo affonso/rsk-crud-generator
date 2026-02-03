@@ -95,7 +95,7 @@ class ConfigurationManager implements ConfigurationManagerInterface
         if (! File::exists($configFile)) {
             return [
                 'added' => false,
-                'message' => '⚠ Arquivo config/'.config('crud-generator.navigation_file').' não encontrado',
+                'message' => '⚠ Arquivo '.str_replace(base_path().'/', '', $configFile).' não encontrado',
             ];
         }
 
