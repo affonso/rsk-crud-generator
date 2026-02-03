@@ -78,10 +78,10 @@ If the installation command reports missing dependencies, install them:
 
 ```bash
 # Install npm dependencies (using bun)
-bun add @tanstack/react-virtual fuse.js usehooks-ts
+bun add @tanstack/react-table @tanstack/react-virtual fuse.js usehooks-ts
 
 # Or using npm
-npm install @tanstack/react-virtual fuse.js usehooks-ts
+npm install @tanstack/react-table @tanstack/react-virtual fuse.js usehooks-ts
 
 # Install missing shadcn/ui components
 npx shadcn@latest add button card input select checkbox label table alert alert-dialog badge popover tooltip skeleton switch
@@ -370,12 +370,13 @@ The following npm packages must be installed:
 
 ```bash
 # Using bun
-bun add @tanstack/react-virtual fuse.js usehooks-ts
+bun add @tanstack/react-table @tanstack/react-virtual fuse.js usehooks-ts
 
 # Or using npm
-npm install @tanstack/react-virtual fuse.js usehooks-ts
+npm install @tanstack/react-table @tanstack/react-virtual fuse.js usehooks-ts
 ```
 
+- **@tanstack/react-table**: Powerful table library for building data tables
 - **@tanstack/react-virtual**: Virtual scrolling for large data sets
 - **fuse.js**: Fuzzy search functionality
 - **usehooks-ts**: Utility React hooks
