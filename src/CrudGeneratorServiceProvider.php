@@ -79,6 +79,11 @@ class CrudGeneratorServiceProvider extends ServiceProvider
             __DIR__.'/../config/crud-generator.php' => config_path('crud-generator.php'),
         ], 'crud-generator-config');
 
+        // Publish navigation config template
+        $this->publishes([
+            __DIR__.'/../config/rsk-crud-navigation.php' => config_path('rsk-crud-navigation.php'),
+        ], 'crud-generator-config');
+
         // Publish stubs
         $this->publishes([
             __DIR__.'/../stubs/shadcn-crud' => base_path('stubs/vendor/crud-generator'),

@@ -84,7 +84,10 @@ class InstallCrudGenerator extends Command implements PromptsForMissingInput
         // Step 5: Create routes file if needed
         $this->createRoutesFileIfNeeded();
 
-        // Step 6: Display final summary
+        // Step 6: Create navigation file if needed
+        $this->createNavigationFileIfNeeded();
+
+        // Step 7: Display final summary
         $this->displayFinalSummary();
 
         return self::SUCCESS;
@@ -340,6 +343,65 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     {$marker}
 });
+
+PHP;
+    }
+
+    /**
+     * Create the navigation file if it doesn't exist.
+     */
+    protected function createNavigationFileIfNeeded(): void
+    {
+        info('Checking navigation file...');
+
+        $navFile = config('crud-generator.navigation_file', 'rsk-crud-navigation.php');
+        $navPath = config_path($navFile);
+        $navMarker = config('crud-generator.navigation_marker', '// [RSK-CRUD-NAV]');
+
+        if (File::exists($navPath)) {
+            $this->installationResults['Navigation File'] = "Exists (config/{$navFile})";
+
+            return;
+        }
+
+        $navContent = $this->generateNavigationFileContent($navMarker);
+
+        spin(
+            callback: function () use ($navPath, $navContent) {
+                File::ensureDirectoryExists(dirname($navPath));
+                File::put($navPath, $navContent);
+
+                return true;
+            },
+            message: 'Creating navigation file...'
+        );
+
+        $this->installationResults['Navigation File'] = "Created (config/{$navFile})";
+        $this->manualSteps[] = "Import navigation items in your sidebar/layout component:\n    \$crudNavItems = require config_path('rsk-crud-navigation.php');";
+    }
+
+    /**
+     * Generate the navigation file content.
+     */
+    protected function generateNavigationFileContent(string $marker): string
+    {
+        return <<<PHP
+<?php
+
+/**
+ * RSK CRUD Navigation Items
+ *
+ * This file contains navigation items for generated CRUDs.
+ * Import this array in your main navigation/sidebar configuration.
+ *
+ * Example usage in your layout:
+ *   \$crudNavItems = require config_path('rsk-crud-navigation.php');
+ *   // Merge with your existing navigation items
+ */
+
+return [
+    {$marker}
+];
 
 PHP;
     }
