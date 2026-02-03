@@ -49,8 +49,11 @@ class CrudGeneratorServiceProvider extends ServiceProvider
             $this->loadRoutesFrom(__DIR__.'/../routes/crud-generator.php');
         }
 
+        // Register commands (needed for both console and web execution via Artisan::call())
+        $this->registerCommands();
+
+        // Register publishables only when running in console
         if ($this->app->runningInConsole()) {
-            $this->registerCommands();
             $this->registerPublishables();
         }
     }
