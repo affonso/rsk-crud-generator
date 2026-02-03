@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Requests\{{ modelStudly }};
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class {{ requestType }}{{ modelStudly }}Request extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+{{ validationRules }}
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
+            'string' => 'O campo :attribute deve ser texto.',
+            'numeric' => 'O campo :attribute deve ser numérico.',
+            'email' => 'O campo :attribute deve ser um email válido.',
+            'date' => 'O campo :attribute deve ser uma data válida.',
+            'max' => 'O campo :attribute não pode ter mais que :max caracteres.',
+        ];
+    }
+}

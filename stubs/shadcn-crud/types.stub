@@ -1,0 +1,26 @@
+{{ relationshipTypeImports }}
+
+export interface {{ modelStudly }} {
+{{ interfaceFields }}
+{{ relationshipInterfaceFields }}
+}
+
+export interface {{ modelStudly }}Paginated {
+    data: {{ modelStudly }}[];
+    links: {
+        first: string | null;
+        last: string | null;
+        prev: string | null;
+        next: string | null;
+    };
+    meta: {
+        current_page: number;
+        from: number | null;
+        last_page: number;
+        per_page: number;
+        to: number | null;
+        total: number;
+    };
+}
+
+export type {{ modelStudly }}FormData = Omit<{{ modelStudly }}, 'id' | 'created_at' | 'updated_at'>;

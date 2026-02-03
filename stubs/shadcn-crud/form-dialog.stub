@@ -1,0 +1,102 @@
+import { useEffect } from 'react';
+import { useForm } from '@inertiajs/react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+{{ selectImports }}
+import { {{ modelStudly }} } from '@/types/models/{{ modelCamel }}';
+{{ relationshipTypeImports }}
+import { Loader2 } from 'lucide-react';
+
+interface Props {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    item: {{ modelStudly }} | null;
+{{ relationshipPropsInterface }}
+}
+
+export default function FormDialog({ open, onOpenChange, item{{ relationshipPropsDestructure }} }: Props) {
+    const isEditing = !!item;
+
+    const { data, setData, post, put, processing, errors, reset } = useForm({
+{{ defaultValues }}
+    });
+
+    useEffect(() => {
+        if (open) {
+            reset();
+            if (item) {
+                // Preenche o form com dados do item
+                Object.keys(data).forEach((key) => {
+                    if (item[key as keyof {{ modelStudly }}] !== undefined) {
+                        setData(key as any, item[key as keyof {{ modelStudly }}] as any);
+                    }
+                });
+            }
+        }
+    }, [open, item]);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                onOpenChange(false);
+                reset();
+            },
+        };
+
+        if (isEditing) {
+            put(`/{{ modelPlural }}/${item.id}`, options);
+        } else {
+            post('/{{ modelPlural }}', options);
+        }
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                    <DialogTitle>
+                        {isEditing ? 'Editar' : 'Novo'} {{ modelTitle }}
+                    </DialogTitle>
+                    <DialogDescription>
+                        {isEditing
+                            ? 'Atualize os dados do registro.'
+                            : 'Preencha os dados para criar um novo registro.'}
+                    </DialogDescription>
+                </DialogHeader>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+{{ formFields }}
+
+                    <DialogFooter>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => onOpenChange(false)}
+                            disabled={processing}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" disabled={processing}>
+                            {processing && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                            {isEditing ? 'Salvar' : 'Criar'}
+                        </Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
+    );
+}

@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{ modelStudly }};
+{{ relationshipImports }}
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
+
+class {{ modelStudly }}Controller extends Controller
+{
+    /**
+     * Listar todos os registros
+     */
+    public function index(): Response
+    {
+        $paginated = {{ modelStudly }}::{{ eagerLoadClause }}{{ withCountClause }}latest()->paginate(10)->withQueryString();
+
+        return Inertia::render('{{ modelPluralStudly }}/Index', [
+            '{{ modelPlural }}' => [
+                'data' => $paginated->items(),
+                'links' => [
+                    'first' => $paginated->url(1),
+                    'last' => $paginated->url($paginated->lastPage()),
+                    'prev' => $paginated->previousPageUrl(),
+                    'next' => $paginated->nextPageUrl(),
+                ],
+                'meta' => [
+                    'current_page' => $paginated->currentPage(),
+                    'from' => $paginated->firstItem(),
+                    'last_page' => $paginated->lastPage(),
+                    'per_page' => $paginated->perPage(),
+                    'to' => $paginated->lastItem(),
+                    'total' => $paginated->total(),
+                ],
+            ],
+{{ relationshipDataProps }}
+        ]);
+    }
+
+    /**
+     * Criar novo registro
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+{{ validationRules }}
+        ]);
+
+        {{ modelStudly }}::create($validated);
+
+        return back()->with('success', '{{ modelStudly }} criado com sucesso!');
+    }
+
+    /**
+     * Atualizar registro existente
+     */
+    public function update(Request $request, {{ modelStudly }} ${{ modelCamel }}): RedirectResponse
+    {
+        $validated = $request->validate([
+{{ validationRules }}
+        ]);
+
+        ${{ modelCamel }}->update($validated);
+
+        return back()->with('success', '{{ modelStudly }} atualizado com sucesso!');
+    }
+
+    /**
+     * Excluir registro
+     */
+    public function destroy({{ modelStudly }} ${{ modelCamel }}): RedirectResponse
+    {
+        ${{ modelCamel }}->delete();
+
+        return back()->with('success', '{{ modelStudly }} excluido com sucesso!');
+    }
+}
