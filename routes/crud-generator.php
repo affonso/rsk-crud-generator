@@ -20,7 +20,7 @@ Route::middleware(config('crud-generator.middleware', ['web', 'auth']))
         Route::get('/', function () {
             // This will be handled by the CrudGeneratorController
             // which needs to be moved to the package or registered via the app
-            return \Inertia\Inertia::render('Admin/CrudGenerator/Index', [
+            return \Inertia\Inertia::render('CrudGenerator/Index', [
                 'models' => app(\Rsk\CrudGenerator\Services\ModelIntrospector::class)->getAvailableModels(),
             ]);
         })->name('index');
