@@ -41,5 +41,11 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test:coverage": "vendor/bin/pest --coverage",
+        "pint": "vendor/bin/pint",
+        "pint:test": "vendor/bin/pint --test"
     }
 }
