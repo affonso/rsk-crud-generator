@@ -25,6 +25,7 @@ class InstallCrudGenerator extends Command implements PromptsForMissingInput
      * Required npm dependencies for the CRUD Generator.
      */
     protected array $requiredNpmDependencies = [
+        '@tanstack/react-table',
         '@tanstack/react-virtual',
         'fuse.js',
         'usehooks-ts',
