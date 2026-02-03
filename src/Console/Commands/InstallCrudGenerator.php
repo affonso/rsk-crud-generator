@@ -34,17 +34,20 @@ class InstallCrudGenerator extends Command implements PromptsForMissingInput
      * Required shadcn/ui components for the CRUD Generator.
      */
     protected array $requiredShadcnComponents = [
+        'alert',
+        'alert-dialog',
+        'badge',
         'button',
         'card',
-        'input',
-        'select',
         'checkbox',
-        'table',
-        'alert',
-        'badge',
+        'input',
+        'label',
         'popover',
-        'tooltip',
+        'select',
         'skeleton',
+        'switch',
+        'table',
+        'tooltip',
     ];
 
     /**
@@ -311,7 +314,7 @@ class InstallCrudGenerator extends Command implements PromptsForMissingInput
         );
 
         $this->installationResults['Routes File'] = "Created ({$routesFile})";
-        $this->manualSteps[] = "Include the routes file in bootstrap/app.php or routes/web.php:\n    require __DIR__.'/{$routesFile}';";
+        $this->manualSteps[] = "Include the routes file in routes/web.php:\n    require __DIR__.'/".basename($routesFile)."';";
     }
 
     /**
