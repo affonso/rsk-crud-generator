@@ -37,7 +37,7 @@ class CrudGeneratorController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Admin/CrudGenerator/Index', [
+        return Inertia::render('CrudGenerator/Index', [
             'models' => $this->modelIntrospector->getAvailableModels(),
         ]);
     }
