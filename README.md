@@ -75,8 +75,11 @@ This command will:
 If the installation command reports missing dependencies, install them:
 
 ```bash
-# Install npm dependencies
+# Install npm dependencies (using bun)
 bun add @tanstack/react-virtual fuse.js usehooks-ts
+
+# Or using npm
+npm install @tanstack/react-virtual fuse.js usehooks-ts
 
 # Install missing shadcn/ui components
 npx shadcn@latest add button card input select checkbox table alert badge popover tooltip skeleton
@@ -85,9 +88,15 @@ npx shadcn@latest add button card input select checkbox table alert badge popove
 ### Step 4: Build frontend assets
 
 ```bash
+# Using bun
 bun run build
 # or for development
 bun run dev
+
+# Or using npm
+npm run build
+# or for development
+npm run dev
 ```
 
 ## Quick Start
@@ -130,7 +139,11 @@ php artisan make:shadcn-crud Post --config-file=storage/app/crud-generator/Post.
 After generation, rebuild your frontend assets:
 
 ```bash
+# Using bun
 bun run build
+
+# Or using npm
+npm run build
 ```
 
 ## Usage
@@ -354,7 +367,11 @@ resources/
 The following npm packages must be installed:
 
 ```bash
+# Using bun
 bun add @tanstack/react-virtual fuse.js usehooks-ts
+
+# Or using npm
+npm install @tanstack/react-virtual fuse.js usehooks-ts
 ```
 
 - **@tanstack/react-virtual**: Virtual scrolling for large data sets
@@ -446,10 +463,32 @@ Contributions are welcome! This package is part of the Laravel React Starter Kit
 ### Development Guidelines
 
 1. Follow PSR-12 coding standards for PHP
-2. Use Laravel Pint for code formatting: `vendor/bin/pint`
+2. Use Laravel Pint for code formatting: `composer pint` or `vendor/bin/pint`
 3. Write tests for new features using Pest
 4. Update documentation for user-facing changes
 5. Follow existing naming conventions in stubs
+
+### Development Commands
+
+**Code formatting:**
+```bash
+# Format code with Laravel Pint
+composer pint
+# or
+vendor/bin/pint
+```
+
+**Dependency management:**
+```bash
+# Install dependencies
+composer install
+
+# Update dependencies
+composer update
+
+# Require new package (dev only)
+composer require package/name --dev
+```
 
 ### Testing
 
@@ -463,6 +502,12 @@ Run specific tests:
 
 ```bash
 composer test -- --filter=ModelIntrospectorTest
+```
+
+Run tests with coverage:
+
+```bash
+composer test -- --coverage
 ```
 
 ### Reporting Issues
