@@ -90,7 +90,12 @@ class ConfigurationManager implements ConfigurationManagerInterface
      */
     public function addNavigationItem(string $model, string $icon): array
     {
-        $configFile = config_path(config('crud-generator.navigation_file'));
+        $navigationFile = config('crud-generator.navigation_file');
+
+        // Remove 'config/' prefix if present (for backward compatibility)
+        $navigationFile = preg_replace('#^config[/\\\\]#', '', $navigationFile);
+
+        $configFile = config_path($navigationFile);
 
         if (! File::exists($configFile)) {
             return [
