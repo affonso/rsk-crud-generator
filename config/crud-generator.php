@@ -116,7 +116,7 @@ return [
     |
     */
 
-    'navigation_file' => 'config/rsk-crud-navigation.php',
+    'navigation_file' => 'rsk-crud-navigation.php',
 
     /*
     |--------------------------------------------------------------------------
