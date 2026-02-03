@@ -84,7 +84,7 @@ bun add @tanstack/react-virtual fuse.js usehooks-ts
 npm install @tanstack/react-virtual fuse.js usehooks-ts
 
 # Install missing shadcn/ui components
-npx shadcn@latest add button card input select checkbox table alert badge popover tooltip skeleton
+npx shadcn@latest add button card input select checkbox label table alert alert-dialog badge popover tooltip skeleton switch
 ```
 
 ### Step 4: Build frontend assets
@@ -385,7 +385,7 @@ npm install @tanstack/react-virtual fuse.js usehooks-ts
 The following shadcn/ui components must be installed:
 
 ```bash
-npx shadcn@latest add button card input select checkbox table alert badge popover tooltip skeleton
+npx shadcn@latest add button card input select checkbox label table alert alert-dialog badge popover tooltip skeleton switch
 ```
 
 - **button**: Action buttons and form submissions
@@ -393,12 +393,15 @@ npx shadcn@latest add button card input select checkbox table alert badge popove
 - **input**: Text input fields
 - **select**: Dropdown selections
 - **checkbox**: Boolean fields
+- **label**: Form field labels
 - **table**: Data table display
 - **alert**: Notifications and messages
+- **alert-dialog**: Confirmation dialogs (delete operations)
 - **badge**: Status indicators
 - **popover**: Context menus and tooltips
 - **tooltip**: Hover information
 - **skeleton**: Loading states
+- **switch**: Toggle switches for boolean settings
 
 The installation command automatically checks for these prerequisites and provides installation instructions if any are missing.
 
