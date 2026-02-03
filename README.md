@@ -37,14 +37,14 @@ The RSK CRUD Generator automates the creation of complete CRUD (Create, Read, Up
 
 ### Step 1: Install the package via Composer
 
-Since this is a local package during development, add the repository to your root `composer.json`:
+Since this package is not yet published on Packagist, add the GitHub repository to your root `composer.json`:
 
 ```json
 {
     "repositories": [
         {
-            "type": "path",
-            "url": "./packages/rsk/crud-generator"
+            "type": "vcs",
+            "url": "https://github.com/affonso/rsk-crud-generator"
         }
     ]
 }
@@ -53,8 +53,10 @@ Since this is a local package during development, add the repository to your roo
 Then require the package:
 
 ```bash
-composer require rsk/crud-generator --dev
+composer require rsk/crud-generator:dev-main --dev
 ```
+
+> **Note**: The `dev-main` specifies the main branch. Composer requires the `dev-` prefix for VCS repositories.
 
 ### Step 2: Run the installation command
 
