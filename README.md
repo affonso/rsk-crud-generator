@@ -259,6 +259,39 @@ return [
 
 **`navigation_file`** and **`navigation_marker`**: Control where navigation menu items are added.
 
+### Setting Up Navigation
+
+The generator can automatically add navigation items for your CRUDs. To enable this feature:
+
+1. **The navigation file is created automatically** during installation at `config/rsk-crud-navigation.php`
+
+2. **Import it in your layout/sidebar component:**
+
+```php
+// In your sidebar blade component or layout
+$crudNavItems = require config_path('rsk-crud-navigation.php');
+
+// Then loop through and render the items
+foreach ($crudNavItems as $item) {
+    // Render navigation item
+    // $item['title'], $item['route'], $item['icon'], $item['enabled']
+}
+```
+
+3. **Or for Inertia.js applications**, share it via middleware:
+
+```php
+// In app/Http/Middleware/HandleInertiaRequests.php
+public function share(Request $request): array
+{
+    return array_merge(parent::share($request), [
+        'crudNavItems' => fn () => require config_path('rsk-crud-navigation.php'),
+    ]);
+}
+```
+
+Then access in your React components via `usePage().props.crudNavItems`.
+
 ## Customization
 
 ### Publishing Stubs
